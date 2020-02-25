@@ -1,0 +1,12 @@
+# idea
+.idea
+**/*.iml
+
+# exported binaries
+**/main
+
+# some backup files
+**/*.zip
+
+# other hidden misc
+**/.DS_Store
