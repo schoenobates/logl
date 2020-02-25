@@ -40,13 +40,23 @@ func (w *Window) IsPressed(key glfw.Key) bool {
     return w.win.GetKey(key) == glfw.Press
 }
 
+// gets the elapsed time since the window was created
+func (w *Window) Time() float64 {
+    return glfw.GetTime()
+}
+
+// sets the clear color
+func (w *Window) ClearColor(c Color) {
+    gl.ClearColor(c.r, c.g, c.b, c.a)
+}
+
 // enters the render loop and will block the caller until exit
 func (w *Window) Render(render Renderer) {
     for !w.win.ShouldClose() {
 
         // input - keyboard, mouse etc
         // defaults for now
-
+        gl.Clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
 
         // render
         render()
@@ -61,6 +71,9 @@ func (w *Window) Render(render Renderer) {
 // creates a new application window and initialises the GLFW and GL subsystems. This call will also lock the current
 // go routine to the OS thread (using runtime.LockOSThread())
 func NewWindow(title string, resizable bool, width, height int32) (*Window, error) {
+
+    // https://github.com/golang/go/wiki/LockOSThread
+    runtime.LockOSThread()
 
     // ----------------------------------------------------------------------------------------------------
     // main initialisation of glfw

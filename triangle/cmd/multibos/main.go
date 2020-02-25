@@ -5,12 +5,7 @@ import (
     "github.com/go-gl/gl/v3.3-core/gl"
     "logl/render"
     "os"
-    "runtime"
 )
-
-func init() {
-    runtime.LockOSThread()
-}
 
 func main() {
     window, err := render.NewWindow("Two Triangles, Multi VBO/VAO", false, 800, 600)
@@ -75,7 +70,7 @@ func main() {
     gl.ClearColor(1.0, 1.0, 1.0, 1.0)
     window.Render(func() {
         gl.Clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
-        gl.UseProgram(prog.Ptr)
+        prog.Use()
         gl.BindVertexArray(vao0)
         gl.DrawArrays(gl.TRIANGLES, 0, 3)
         gl.BindVertexArray(vao1)

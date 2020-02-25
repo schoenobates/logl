@@ -5,12 +5,7 @@ import (
     "github.com/go-gl/gl/v3.3-core/gl"
     "logl/render"
     "os"
-    "runtime"
 )
-
-func init() {
-    runtime.LockOSThread()
-}
 
 func main() {
     window, err := render.NewWindow("Multi Fragment", false, 800, 600)
@@ -87,10 +82,11 @@ func main() {
     gl.ClearColor(0.0, 0.0, 0.0, 1.0)
     window.Render(func() {
         gl.Clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
-        gl.UseProgram(progg.Ptr)
+        progg.Use()
         gl.BindVertexArray(vao0)
         gl.DrawArrays(gl.TRIANGLES, 0, 3)
-        gl.UseProgram(progy.Ptr)
+
+        progy.Use()
         gl.BindVertexArray(vao1)
         gl.DrawArrays(gl.TRIANGLES, 0, 3)
     })

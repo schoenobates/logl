@@ -6,12 +6,7 @@ import (
     "github.com/go-gl/glfw/v3.3/glfw"
     "logl/render"
     "os"
-    "runtime"
 )
-
-func init() {
-    runtime.LockOSThread()
-}
 
 func main() {
     window, err := render.NewWindow("EBO", true, 800, 600)
@@ -99,7 +94,7 @@ func main() {
             gl.PolygonMode(gl.FRONT_AND_BACK, gl.FILL)
         }
 
-        gl.UseProgram(program.Ptr)
+        program.Use()
         gl.BindVertexArray(vao)
         gl.DrawElements(gl.TRIANGLES, 6, gl.UNSIGNED_INT, nil)
 

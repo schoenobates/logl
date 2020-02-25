@@ -6,14 +6,8 @@ import (
     "github.com/go-gl/gl/v3.3-core/gl"
     "logl/render"
     "os"
-    "runtime"
     "strings"
 )
-
-// ensure main is on the main thread - see https://github.com/golang/go/wiki/LockOSThread
-func init() {
-    runtime.LockOSThread()
-}
 
 // --------------------------------------------------------------------------------------------------------
 // ShaderType
