@@ -12,9 +12,9 @@ type Renderer func()
 
 // holds the gl stuff together and will call the renderer repeatedly
 type Window struct {
-    Width int32
+    Width  int32
     Height int32
-    win *glfw.Window
+    win    *glfw.Window
 }
 
 // closes the window
@@ -118,12 +118,15 @@ func NewWindow(title string, resizable bool, width, height int32) (*Window, erro
         return nil, err
     }
 
+    // clear any error flags set
+    gl.GetError()
+
     version := gl.GoStr(gl.GetString(gl.VERSION))
     fmt.Printf("running with opengl: version = %s\n", version)
 
     win := &Window{
-        win: window,
-        Width: width,
+        win:    window,
+        Width:  width,
         Height: height,
     }
 
