@@ -4,6 +4,7 @@ import (
     "errors"
     "fmt"
     "github.com/go-gl/gl/v3.3-core/gl"
+    "github.com/go-gl/mathgl/mgl32"
     "image"
     "image/draw"
     _ "image/gif"
@@ -306,6 +307,15 @@ func (p *Program) Float(name string, value float32) error {
 func (p *Program) Vec4(name string, value Vec4) error {
     if location, err := p.uniform(name); err == nil {
         gl.Uniform4f(location, value[0], value[1], value[2], value[3])
+        return nil
+    } else {
+        return err
+    }
+}
+
+func (p *Program) Mat4(name string, value mgl32.Mat4) error {
+    if location, err := p.uniform(name); err == nil {
+        gl.UniformMatrix4fv(location, 1, false, &value[0])
         return nil
     } else {
         return err
